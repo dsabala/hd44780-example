@@ -4,20 +4,19 @@
 
 #include "stm32f4xx_hal.h"
 
-hd44780_cfg_t * hd44780_get_handle(void) {
-  static hd44780_cfg_t config =
+hd44780_hdl * hd44780_get_handle(void) {
+  static hd44780_hdl config =
   {.cb_config_gpio = hd44780_cb_config_gpio,
    .cb_delay_ms = hd44780_cb_delay_ms,
    .cb_ctrl_pin = hd44780_cb_ctrl_pin,
    .cb_read_bus = hd44780_cb_read_bus,
    .cb_write_bus = hd44780_cb_write_bus,
-   .cursor_config = CURSOR_OFF,
    .interface = INTERFACE_4BIT };
 
   return &config;
 }
 
-void hd44780_cb_config_gpio(hd44780_gpio_dir_t const direction) {
+void hd44780_cb_config_gpio(hd44780_gpio_dir const direction) {
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -82,7 +81,7 @@ void hd44780_cb_config_gpio(hd44780_gpio_dir_t const direction) {
 
 void hd44780_cb_delay_ms(uint8_t const time_ms) { HAL_Delay(time_ms); }
 
-void hd44780_cb_ctrl_pin(hd44780_ctrl_pin_t const pin, hd44780_pin_state_t const state) {
+void hd44780_cb_ctrl_pin(hd44780_ctrl_pin const pin, hd44780_pin_state const state) {
   GPIO_PinState const pin_state = (state == PIN_SET) ? GPIO_PIN_SET : GPIO_PIN_RESET;
   switch (pin) {
     case HD44780_PIN_RS:

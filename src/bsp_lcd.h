@@ -10,11 +10,11 @@
 extern "C" {
 #endif
 
-hd44780_cfg_t * hd44780_get_handle(void);
-void hd44780_cb_config_gpio(hd44780_gpio_dir_t const direction);
+hd44780_hdl * hd44780_get_handle(void);
+void hd44780_cb_config_gpio(hd44780_gpio_dir const direction);
 void hd44780_cb_delay_ms(uint8_t const time_ms);
-void hd44780_cb_ctrl_pin(hd44780_ctrl_pin_t const pin,
-                         hd44780_pin_state_t const state);
+void hd44780_cb_ctrl_pin(hd44780_ctrl_pin const pin,
+                         hd44780_pin_state const state);
 uint8_t hd44780_cb_read_bus(void);
 void hd44780_cb_write_bus(uint8_t const data);
 
